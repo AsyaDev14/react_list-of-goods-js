@@ -21,6 +21,7 @@ export const App = () => {
 
   const getList = () => {
     let sortedGoods = [...goodsFromServer];
+
     switch (sort) {
       case 'Alph':
         sortedGoods.sort();
@@ -31,11 +32,12 @@ export const App = () => {
       default:
         sortedGoods = [...goodsFromServer];
     }
+
     return isReversed ? sortedGoods.reverse() : sortedGoods;
   };
 
   const toggleReverse = () => {
-    setIsReversed((prev) => !prev);
+    setIsReversed(prev => !prev);
   };
 
   const isOriginalOrder = sort === '' && !isReversed;
@@ -82,10 +84,8 @@ export const App = () => {
       </div>
 
       <ul>
-        {getList().map((good, index) => (
-          <li key={index} data-cy="Good">
-            {good}
-          </li>
+        {getList().map(good => (
+          <li key={good} data-cy="Good">{good}</li>
         ))}
       </ul>
     </div>
