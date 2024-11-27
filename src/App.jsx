@@ -15,18 +15,23 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
+export const SORT_KEYS = {
+  ALPHABETICAL: 'Alphabetical',
+  LENGTH: 'Length',
+};
+
 export const App = () => {
   const [sort, setSort] = useState('');
   const [isReversed, setIsReversed] = useState(false);
 
-  const getList = () => {
+  const getSortedList = () => {
     let sortedGoods = [...goodsFromServer];
 
     switch (sort) {
-      case 'Alph':
+      case SORT_KEYS.ALPHABETICAL:
         sortedGoods.sort();
         break;
-      case 'Length':
+      case SORT_KEYS.LENGTH:
         sortedGoods.sort((a, b) => a.length - b.length);
         break;
       default:
@@ -47,16 +52,16 @@ export const App = () => {
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${sort === 'Alph' ? '' : 'is-light'}`}
-          onClick={() => setSort('Alph')}
+          className={`button is-info ${sort === SORT_KEYS.ALPHABETICAL ? '' : 'is-light'}`}
+          onClick={() => setSort(SORT_KEYS.ALPHABETICAL)}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          className={`button is-success ${sort === 'Length' ? '' : 'is-light'}`}
-          onClick={() => setSort('Length')}
+          className={`button is-success ${sort === SORT_KEYS.LENGTH ? '' : 'is-light'}`}
+          onClick={() => setSort(SORT_KEYS.LENGTH)}
         >
           Sort by length
         </button>
@@ -84,8 +89,10 @@ export const App = () => {
       </div>
 
       <ul>
-        {getList().map(good => (
-          <li key={good} data-cy="Good">{good}</li>
+        {getSortedList().map(good => (
+          <li key={good} data-cy="Good">
+            {good}
+          </li>
         ))}
       </ul>
     </div>
